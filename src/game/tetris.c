@@ -762,6 +762,17 @@ void setupplayer(struct player *p)
     p->current_time = p->start_time;
 }
 
+void setstarttime(struct player *p)
+{
+    p->start_time = get_clock();
+    p->current_time = p->start_time;
+}
+
+void rollbackplayertimer(struct player *p, int n)
+{
+    p->start_time = p->start_time + n;
+}
+
 static int random_piece() {
 	int i, n = 0;
 	int choices[7];
@@ -806,6 +817,7 @@ int startgame_1p()
 	game->next = &next;
 	if (!startgame_wait(SINGLE_PL))
 		return 0;
+    setstarttime(&player1);
 	tetr_stats[i] = 1;
 	upd_stat(&player1, 0);
 	while (nextpiece(&next)) {
@@ -860,6 +872,7 @@ int pausegame()
 {
 	int t = gettm(0);
 	int key;
+    int startpausetime = get_clock();
 	game->state = GAME_PAUSED;
 	clearboard_paused();
 	hide_dropmarker(&player1);
@@ -869,6 +882,7 @@ int pausegame()
 	if (processkey_ingame(key, NO_PAUSE | DISCARD_MOVES) == -2)
 		return -2;
 	upd_screen(1);
+    rollbackplayertimer(&player1, get_clock() - startpausetime);
 	show_dropmarker(&player1);
 	game->state = GAME_RUNNING;
 	return 2;
