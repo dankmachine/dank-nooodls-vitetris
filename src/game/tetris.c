@@ -770,7 +770,9 @@ void setstarttime(struct player *p)
 
 void rollbackplayertimer(struct player *p, int n)
 {
-    p->start_time = p->start_time + n;
+    if (n > 0) {
+        p->start_time = p->start_time + n;
+    }
 }
 
 static int random_piece() {
