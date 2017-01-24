@@ -759,13 +759,11 @@ void setupplayer(struct player *p)
 	p->lines = (game->mode & MODE_BTYPE) ? p->lineslimit : 0;
 	memset(p->bag, 0, 7);
     p->start_time = get_clock();
-    p->current_time = p->start_time;
 }
 
 void setstarttime(struct player *p)
 {
     p->start_time = get_clock();
-    p->current_time = p->start_time;
 }
 
 void rollbackplayertimer(struct player *p, int n)
