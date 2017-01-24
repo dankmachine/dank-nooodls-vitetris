@@ -10,7 +10,7 @@ struct hiscore {
 } hiscores[10];
 
 #define ishiscore() (player1.lines == 0 && \
-                    player1.score < hiscores[9].score)
+                    (hiscores[9].score == 0 || player1.score < hiscores[9].score))
 
 int readhiscores(const char *filename);
 
