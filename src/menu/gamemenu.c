@@ -13,15 +13,15 @@ static int gm_level(int k, int *pos)
 		k = -1;
 	else if (k==MVRIGHT)
 		k = 1;
-	else if (k >= '0' && k <= '9') {
+	else if (k >= '0' && k <= '20') {
 		p->startlevel = 0;
 		k -= '0';
 	} else if (k)
 		return 0;
 	i = p->startlevel+k;
-	if (i >= 0 && i < 10) {
+	if (i >= 0 && i < 21) {
 		p->startlevel = i;
-		printmenuitem_options("0 1 2 3 4 5 6 7 8 9", i);
+		printmenuitem_options("0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20", i);
 	}
 	return 1;
 }
